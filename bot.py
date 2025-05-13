@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 from telegram import Update
 from telegram.ext import (
     Application,
@@ -7,6 +8,9 @@ from telegram.ext import (
     ContextTypes,
     filters
 )
+
+load_dotenv()
+TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Отправляет сообщение при команде /start"""
@@ -26,7 +30,7 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 def main() -> None:
     """Запускает бота"""
-    application = Application.builder().token("7282724004:AAEV-3rebVWQ4nL8jg0ESQzd_upMf6odnrg").build()
+    application = Application.builder().token(TOKEN).build()
 
     # Обработчики команд
     application.add_handler(CommandHandler("start", start))
